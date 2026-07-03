@@ -71,6 +71,15 @@ are both important.
 
 ## Use
 
+First generate the training corpus (it isn't shipped in the repo — see
+[The training data](#the-training-data)):
+
+```bash
+python3 scripts/gen_corpus.py 1000000 data/corpus.txt
+```
+
+Then:
+
 ```bash
 ./atlas train            # train ~2000 steps on data/corpus.txt, save model.bin
 ./atlas train 5000       # train for a specific number of steps (more = better)
@@ -102,11 +111,17 @@ You: /quit
 persona — greetings, life-wisdom reflections, mental-health support (validating,
 and **crisis-aware**: distress is met with a caring nudge toward real help),
 poetry, FreeBASIC Q&A, and encouragement. It is produced by
-[`scripts/gen_corpus.py`](scripts/gen_corpus.py) from themed fragment pools:
+[`scripts/gen_corpus.py`](scripts/gen_corpus.py) from themed fragment pools.
+
+> **Note:** `data/corpus.txt` is **not included in this repository** (it's ~60 MB
+> and fully regenerable). After cloning, generate it before training:
 
 ```bash
 python3 scripts/gen_corpus.py 1000000 data/corpus.txt
 ```
+
+Generation is seeded and deterministic, so everyone gets the same corpus. It needs
+only the Python 3 standard library — no packages to install.
 
 **Use your own data:** replace `data/corpus.txt` with any text (the `User: ...` /
 `Bot: ...` line format is what the chat mode expects) and retrain. The vocabulary
