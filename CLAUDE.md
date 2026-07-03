@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Atlas is a character-level GPT (Transformer) language model implemented **from scratch in pure FreeBASIC** — no external ML libraries. Everything (tokenizer, forward pass, hand-derived backward pass, AdamW, multi-threaded training loop, chat) lives in the single file `atlas.bas` (~900 lines). It builds from the same source on Linux 64-bit and Windows 32-bit.
+Atlas is a character-level GPT (Transformer) language model implemented **from scratch in pure FreeBASIC** — no external ML libraries. Everything (tokenizer, forward pass, hand-derived backward pass, AdamW, multi-threaded training loop, chat) lives in the single file `atlas.bas` (~1000 lines). It builds from the same source on Linux 64-bit and Windows 32-bit.
+
+Published at https://github.com/ronen-blumberg/Atlas.
 
 ## Build & run
 
@@ -24,10 +26,11 @@ Three flags are load-bearing and must not be dropped:
 ./atlas                 # chat if model.bin exists, else train
 ```
 
-Regenerate the training corpus (seeded/deterministic):
+Regenerate the training corpus (seeded/deterministic, stdlib-only Python):
 ```bash
 python3 scripts/gen_corpus.py 1000000 data/corpus.txt
 ```
+`data/corpus.txt` (~60 MB) is **gitignored** — a fresh clone has no corpus, so run this before any training. The local `wordnet/` directory is unused by the corpus generator (leftover data, also gitignored); don't look there for the persona sources.
 
 There is no test suite. Verify changes empirically: a short `./atlas train 300` should show cross-entropy loss falling from ~ln(vocab) (~3.5–4) toward ~1; if it prints `loss 0.0000` or doesn't drop, a gradient or a loop is broken.
 
