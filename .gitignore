@@ -1,0 +1,12 @@
+model.bin
+atlas
+atlas.exe
+*.o
+
+chattest.log
+crisistest.log
+train.log
+bench.log
+
+data/corpus.txt
+wordnet/
